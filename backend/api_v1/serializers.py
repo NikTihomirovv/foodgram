@@ -130,7 +130,10 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 
 class RecipeIngredientReadSerializer(serializers.ModelSerializer):
-    """Сериализатор для промежуточной таблицы между рецептом и ингридиентом. Только для чтения."""
+    """
+    Сериализатор для промежуточной таблицы между рецептом и ингридиентом.
+    Только для чтения.
+    """
 
     id = serializers.ReadOnlyField(source='ingredient.id')
     name = serializers.ReadOnlyField(source='ingredient.name')
@@ -188,7 +191,10 @@ class RecipeReadSerializer(serializers.ModelSerializer):
 
 
 class RecipeIngredientWriteSerializer(serializers.ModelSerializer):
-    """Сериализатор для промежуточной таблицы между рецептом и ингридиентом. Для записи и обновления."""
+    """
+    Сериализатор для промежуточной таблицы
+    между рецептом и ингридиентом. Для записи и обновления.
+    """
 
     id = serializers.IntegerField(write_only=True)
     amount = serializers.IntegerField(required=True)
@@ -231,14 +237,14 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
                 ingredient=get_object_or_404(Ingredient.objects.filter(id=id)),
                 amount=ingredient['amount'],
             )[0].id)
-            
+
         return recipe
 
     def update(self, instance, validated_data):
         instance.tags.clear()
         instance.ingredients.clear()
         instance.tags.set(validated_data.pop('tags'))
-        ingredients=validated_data.pop('ingredients')
+        ingredients = validated_data.pop('ingredients')
 
         for ingredient in ingredients:
             id = ingredient['id']

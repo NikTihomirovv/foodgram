@@ -18,7 +18,7 @@ class FilterForIngredients(FilterSet):
 class FilterForFavouritesAndShopingCard(FilterSet):
     """Фильтр для обеспечения корректного отображения избранных товаров
        и товаров в списке покупок."""
-    
+
     tags = rest_framework.filters.ModelMultipleChoiceFilter(
         field_name='tags__slug',
         to_field_name='slug',
@@ -38,13 +38,13 @@ class FilterForFavouritesAndShopingCard(FilterSet):
         if value and not user.is_anonymous:
             return queryset.filter(is_favorited__user=user)
         return queryset
-    
+
     def shopping_card_filter(self, queryset, name, value):
         user = self.request.user
         if value and not user.is_anonymous:
             return queryset.filter(is_in_shopping_cart__user=user)
         return queryset
-    
+
     class Meta:
         model = Recipe
         fields = ('author', 'tags', 'is_favorited', 'is_in_shopping_cart')

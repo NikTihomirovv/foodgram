@@ -1,5 +1,8 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator
 from django.db import models
+from django.db.models import UniqueConstraint
+
 
 User = get_user_model()
 
@@ -109,10 +112,15 @@ class Recipe(models.Model):
         blank=False,
         related_name='recipes'
     )
+    pub_date = models.DateTimeField(
+        verbose_name='Дата публикации',
+        auto_now_add=True
+    )
 
     class Meta:
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
+        ordering = ('-pub_date',)
 
     def __str__(self):
         return self.name
@@ -127,7 +135,10 @@ class RecipeIngredient(models.Model):
         verbose_name='Ингридиент'
     )
     amount = models.IntegerField(
-        verbose_name='Количество ингридиента в рецепте'
+        verbose_name='Количество ингридиента в рецепте',
+        validators=[
+            MinValueValidator(1, 'Минимальное значение - 1')
+        ],
     )
 
     class Meta:
@@ -155,6 +166,12 @@ class Favourite(models.Model):
     )
 
     class Meta:
+        constraints = [
+            UniqueConstraint(
+                fields=('user', 'recipe'),
+                name='unique_favourites',
+            )
+        ]
         verbose_name = 'Избранный рецепт'
         verbose_name_plural = 'Избранные рецепты'
 
@@ -181,6 +198,12 @@ class ShoppingCart(models.Model):
     class Meta:
         verbose_name = 'Добавленный рецепт'
         verbose_name_plural = 'Добавленные рецепты'
+        constraints = [
+            UniqueConstraint(
+                fields=('user', 'recipe'),
+                name='unique_shopping_cart'
+            )
+        ]
 
     def __str__(self):
         return f'{self.user} добавил {self.recipe} в корзтну.'

@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import UniqueConstraint
 
 
 class UserRole:
@@ -84,6 +85,10 @@ class Subscription(models.Model):
     )
 
     class Meta:
+        constraints = [
+            UniqueConstraint(fields=['user', 'author'],
+                             name='unique_subscription')
+        ]
         verbose_name = "подписка"
         verbose_name_plural = "Подписки"
 

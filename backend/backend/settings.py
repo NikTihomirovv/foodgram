@@ -74,13 +74,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': '/data/db.sqlite3',
-#     }
-# } 
-
 
 # DATABASES = {
 #     'default': {
@@ -142,4 +135,3 @@ DJOSER = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/.*$'
-
