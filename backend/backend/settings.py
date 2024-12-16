@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-o$m=ujy+tjt9cg+wfnrjnk^s0-!k+^4r_pe)7__ikyd6eail4q'
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '80', '8000', '127.0.0.1', '89.169.160.21', 'foodgramk.work.gd']
+ALLOWED_HOSTS = ['localhost', '8080', '127.0.0.1', '89.169.160.21', 'foodgramka.ydns.eu']
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'collected_static'
