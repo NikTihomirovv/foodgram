@@ -9,7 +9,6 @@ from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-
 from api_v1.filters import (FilterForFavouritesAndShopingCard,
                             FilterForIngredients)
 from api_v1.pagination import CustomPagination
