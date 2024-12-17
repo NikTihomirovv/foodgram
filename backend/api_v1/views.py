@@ -10,17 +10,17 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
-from api_v1.filters import (FilterForFavouritesAndShopingCard,
-                            FilterForIngredients)
-from api_v1.pagination import CustomPagination
-from api_v1.permissions import IsAdminAuthorOrReadOnly
-from api_v1.serializers import (CustomUserSerializer, IngredientSerializer,
-                                RecipeReadSerializer, RecipeShortSerializer,
-                                RecipeWriteSerializer, SubscriptionSerializer,
-                                TagSerializer)
 from recipes.models import (Favourite, Ingredient, Recipe, RecipeIngredient,
                             ShoppingCart, Tag)
 from users.models import Subscription
+
+from .filters import FilterForFavouritesAndShopingCard, FilterForIngredients
+from .pagination import CustomPagination
+from .permissions import IsAdminAuthorOrReadOnly
+from .serializers import (CustomUserSerializer, IngredientSerializer,
+                          RecipeReadSerializer, RecipeShortSerializer,
+                          RecipeWriteSerializer, SubscriptionSerializer,
+                          TagSerializer)
 
 User = get_user_model()
 
