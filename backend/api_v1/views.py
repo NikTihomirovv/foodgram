@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.db.models import Sum
+from django.db.models import Count, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
@@ -60,9 +60,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_201_CREATED
             )
 
-        else:
-            Favourite.objects.filter(user=request.user, recipe=recipe).delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+        # Favourite.objects.filter(user=request.user, recipe=recipe).delete()
+        recipe.is_favorited.filter(user=request.user).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(
         detail=True,
@@ -80,12 +80,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_201_CREATED
             )
 
-        else:
-            ShoppingCart.objects.filter(
-                user=request.user,
-                recipe=recipe
-            ).delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+        # ShoppingCart.objects.filter(
+        #     user=request.user,
+        #     recipe=recipe
+        # ).delete()
+        recipe.is_in_shopping_cart.filter(user=request.user).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(
         detail=False,
@@ -173,12 +173,6 @@ class CustomUserViewSet(UserViewSet):
         user = request.user
         author = get_object_or_404(User, id=id)
 
-        if user == author:
-            return Response(
-                'Нельзя подписаться на самого себя.',
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
         if request.method == 'POST':
             created = Subscription.objects.get_or_create(
                 user=user,
@@ -213,6 +207,7 @@ class CustomUserViewSet(UserViewSet):
         recipes_limit = request.query_params.get('recipes_limit')
 
         page = self.paginate_queryset(queryset)
+
         if page is not None:
             serializer = SubscriptionSerializer(
                 page,
@@ -220,9 +215,10 @@ class CustomUserViewSet(UserViewSet):
                 context={'request': request, 'recipes_limit': recipes_limit},
             )
             return self.get_paginated_response(serializer.data)
+
         serializer = SubscriptionSerializer(
             queryset,
             many=True,
             context={'request': request, 'recipes_limit': recipes_limit},
-        )
+        ).annotate(recipes_count=Count('author__recipes'))
         return Response(serializer.data)

@@ -74,13 +74,13 @@ class Subscription(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name="Подписчик",
+        verbose_name='Подписчик',
         related_name='subscriber'
     )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name="Автор",
+        verbose_name='Автор',
         related_name='is_subscribed'
     )
 
@@ -89,8 +89,10 @@ class Subscription(models.Model):
             UniqueConstraint(fields=['user', 'author'],
                              name='unique_subscription')
         ]
-        verbose_name = "подписка"
-        verbose_name_plural = "Подписки"
+        verbose_name = 'подписка'
+        verbose_name_plural = 'Подписки'
+        ordering = ('user',)
+        default_related_name = 'users'
 
     def __str__(self):
         return f"{self.user.username} подписан на {self.author.username}"
