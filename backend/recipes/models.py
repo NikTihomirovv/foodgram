@@ -98,7 +98,8 @@ class Recipe(models.Model):
         related_name='recipes'
     )
     ingredients = models.ManyToManyField(
-        'RecipeIngredient',
+        Ingredient,
+        through='RecipeIngredient',
         verbose_name='Ингридиенты для рецепта',
         help_text='Укажите ингридиенты, необходимые для приготовления.',
         related_name='recipes',
@@ -130,6 +131,12 @@ class RecipeIngredient(models.Model):
         Ingredient,
         on_delete=models.CASCADE,
         verbose_name='Ингридиент'
+    )
+    recipe = models.ForeignKey(
+        Recipe,
+        on_delete=models.CASCADE,
+        related_name='recipeingredients',
+        verbose_name='Рецепт',
     )
     amount = models.PositiveSmallIntegerField(
         verbose_name='Количество ингридиента в рецепте',
