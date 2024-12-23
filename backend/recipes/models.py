@@ -98,7 +98,8 @@ class Recipe(models.Model):
         related_name='recipes'
     )
     ingredients = models.ManyToManyField(
-        'RecipeIngredient',
+        Ingredient,
+        through='RecipeIngredient',
         verbose_name='Ингридиенты для рецепта',
         help_text='Укажите ингридиенты, необходимые для приготовления.',
         related_name='recipes',
@@ -124,15 +125,20 @@ class Recipe(models.Model):
 
 
 class RecipeIngredient(models.Model):
-    """Модель для связи ингридиента и рецепта."""
+    """Модель для связи ингредиента и рецепта."""
 
     ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
-        verbose_name='Ингридиент'
+        verbose_name='Ингредиент'
+    )
+    recipe = models.ForeignKey(
+        Recipe,
+        on_delete=models.CASCADE,
+        verbose_name='Рецепт',
     )
     amount = models.PositiveSmallIntegerField(
-        verbose_name='Количество ингридиента в рецепте',
+        verbose_name='Количество ингредиента в рецепте',
         validators=[
             MinValueValidator(
                 RECIPE_INGREDIENT_AMOUNT_MIN,
@@ -146,6 +152,7 @@ class RecipeIngredient(models.Model):
     )
 
     class Meta:
+        default_related_name = 'recipe_ingredients'
         verbose_name = 'Количество ингредиента в рецепте'
         verbose_name_plural = 'Количество ингредиента в рецептах'
         ordering = ('ingredient',)

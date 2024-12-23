@@ -60,7 +60,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_201_CREATED
             )
 
-        # Favourite.objects.filter(user=request.user, recipe=recipe).delete()
         recipe.is_favorited.filter(user=request.user).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -80,10 +79,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_201_CREATED
             )
 
-        # ShoppingCart.objects.filter(
-        #     user=request.user,
-        #     recipe=recipe
-        # ).delete()
         recipe.is_in_shopping_cart.filter(user=request.user).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
