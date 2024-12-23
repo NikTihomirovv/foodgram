@@ -12,7 +12,6 @@ from backend.constants import (RECIPE_INGREDIENT_AMOUNT_MAX,
                                RECIPE_INGREDIENT_COOKING_TIME_MIN)
 from recipes.models import Ingredient, Recipe, RecipeIngredient, Tag
 
-import pdb
 User = get_user_model()
 
 
