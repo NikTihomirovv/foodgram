@@ -200,7 +200,7 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
     """Сериализатор для записи и обновления рецептов."""
 
     author = CustomUserSerializer(read_only=True)
-    ingredients = RecipeIngredientWriteSerializer(many=True, write_only=True)
+    ingredients = RecipeIngredientWriteSerializer(many=True)
     image = Base64ImageField()
     cooking_time = serializers.IntegerField(
         required=True,
@@ -255,6 +255,10 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             ingredients=ingredients
         )
         return super().update(instance, validated_data)
+
+    def to_representation(self, instance):
+        serializer = RecipeReadSerializer(instance, context=self.context)
+        return serializer.data
 
 
 class RecipeShortSerializer(serializers.ModelSerializer):
