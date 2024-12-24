@@ -3,7 +3,9 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import UniqueConstraint
 
-from backend.constants import (RECIPE_INGREDIENT_AMOUNT_MAX,
+from backend.constants import (INGREDIENT_MEASUREMENT_UNIT_MAX_LENGTH,
+                               INGREDIENT_NAME_MAX_LENGTH,
+                               RECIPE_INGREDIENT_AMOUNT_MAX,
                                RECIPE_INGREDIENT_AMOUNT_MIN,
                                RECIPE_INGREDIENT_COOKING_TIME_MAX,
                                RECIPE_INGREDIENT_COOKING_TIME_MIN)
@@ -36,22 +38,22 @@ class Tag(models.Model):
 
 
 class Ingredient(models.Model):
-    """Модель ингридиента."""
+    """Модель ингредиента."""
 
     name = models.CharField(
-        verbose_name='Ингридиент',
-        help_text='Укажите название ингридиента.',
-        max_length=50,
+        verbose_name='Ингредиент',
+        help_text='Укажите название ингредиента.',
+        max_length=INGREDIENT_NAME_MAX_LENGTH,
     )
     measurement_unit = models.CharField(
-        max_length=100,
-        verbose_name="Единица измерения",
+        max_length=INGREDIENT_MEASUREMENT_UNIT_MAX_LENGTH,
+        verbose_name='Единица измерения',
         help_text='Выберите единицу измерения.',
     )
 
     class Meta:
-        verbose_name = 'Ингридиент'
-        verbose_name_plural = 'Ингридиенты'
+        verbose_name = 'Ингредиент'
+        verbose_name_plural = 'Ингредиенты'
         default_related_name = 'ingredients'
         ordering = ('name',)
 
@@ -100,8 +102,8 @@ class Recipe(models.Model):
     ingredients = models.ManyToManyField(
         Ingredient,
         through='RecipeIngredient',
-        verbose_name='Ингридиенты для рецепта',
-        help_text='Укажите ингридиенты, необходимые для приготовления.',
+        verbose_name='Ингредиенты для рецепта',
+        help_text='Укажите ингредиенты, необходимые для приготовления.',
         related_name='recipes',
     )
     tags = models.ManyToManyField(
@@ -125,12 +127,12 @@ class Recipe(models.Model):
 
 
 class RecipeIngredient(models.Model):
-    """Модель для связи ингридиента и рецепта."""
+    """Модель для связи ингредиента и рецепта."""
 
     ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
-        verbose_name='Ингридиент'
+        verbose_name='Ингредиент'
     )
     recipe = models.ForeignKey(
         Recipe,
@@ -139,7 +141,7 @@ class RecipeIngredient(models.Model):
         verbose_name='Рецепт',
     )
     amount = models.PositiveSmallIntegerField(
-        verbose_name='Количество ингридиента в рецепте',
+        verbose_name='Количество ингредиента в рецепте',
         validators=[
             MinValueValidator(
                 RECIPE_INGREDIENT_AMOUNT_MIN,
