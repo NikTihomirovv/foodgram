@@ -68,8 +68,10 @@ POST /api/users/ - запрос на регистрацию нового пол�
 "last_name": "Пупкин",
 "password": "Qwerty123"
 }
+```
 
 POST /api/auth/token/login/ - запрос на получение токена.
+```
 {
 "password": "Qwerty123",
 "email": "vpupkin@yandex.ru"
@@ -77,6 +79,24 @@ POST /api/auth/token/login/ - запрос на получение токена.
 ```
 
 POST /api/recipes/ - создание нового рецепта.
+```
+{
+  "ingredients": [
+    {
+      "id": 1123,
+      "amount": 10
+    }
+  ],
+  "tags": [
+    1,
+    2
+  ],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+  "name": "string",
+  "text": "string",
+  "cooking_time": 1
+}
+```
 
 
 # Автор
