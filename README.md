@@ -10,7 +10,7 @@ Foodgram - это сайт с возможностью добавлять рец
 * Nginx
 * Docker
 
-# Как развернуть проект
+# Как развернуть проект на сервере
 Как развернуть проект с помощью Docker.
 1. Создать директории: ```mkdir foodgram``` и ```infra```
 2. Перейти в них: ```cd foodgram```, далее ```cd infra```
@@ -20,6 +20,13 @@ Foodgram - это сайт с возможностью добавлять рец
 6. Копировать статику: ```docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /backend_static/static/``` 
 7. Выполнить миграции: ```docker compose -f docker-compose.production.yml exec backend python manage.py migrate```
 8. Загрузить фикстуры с ингредиентами:  ```docker container exet -it foodgram-backend python manage.py load_fixture```
+
+# Как развернуть проект локально
+1. Копировать репозиторий
+2. Создать файл .env и заполнить его приведенными ниже данными
+3. Запустить докер контенеры, испоьзуя ```docker-compose -f docker-compose-local.yml up -d```
+4. Выполнить команды по сборке статики, ее копированию. Выполнить миграции и запонить базу тестовыми данными. Аналогичные команды указаны выше.
+5. Документация доступных эндпоинтов будет доступна по адресу  [http://localhost/api/docs/]
 
 # Как заполнить env файл
 Пример заполнения:
