@@ -91,7 +91,7 @@ POST /api/recipes/ - создание нового рецепта.
     1,
     2
   ],
-  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+  "image": "binary",
   "name": "string",
   "text": "string",
   "cooking_time": 1
