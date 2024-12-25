@@ -39,5 +39,58 @@ Foodgram - это сайт с возможностью добавлять рец
 * ALLOWED_HOSTS= Список доступных хостов. Пример: '127.0.0.1, ' 
 * DEBUG = 'False/True' Режим отладки.
 
+# Список доступных эндпоинтов
+/api/users/
+/api/users/{id}/
+/api/users/me/
+/api/users/set_password/
+/api/auth/token/login/
+/api/auth/token/logout/
+/api/tags/
+/api/tags/{id}/
+/api/recipes/
+/api/recipes/{id}/
+/api/recipes/download_shopping_cart/
+/api/recipes/{id}/shopping_cart/
+/api/recipes/{id}/favorite/
+/api/users/subscriptions/
+/api/users/{id}/subscribe/
+/api/ingredients/
+/api/ingredients/{id}
+
+# Примеры запросов 
+POST /api/users/ - запрос на регистрацию нового пользователя.
+{
+"email": "vpupkin@yandex.ru",
+"username": "vasya.pupkin",
+"first_name": "Вася",
+"last_name": "Пупкин",
+"password": "Qwerty123"
+}
+
+POST /api/auth/token/login/ - запрос на получение токена.
+{
+"password": "Qwerty123",
+"email": "vpupkin@yandex.ru"
+}
+
+POST /api/recipes/ - создание нового рецепта.
+{
+  "ingredients": [
+    {
+      "id": 1123,
+      "amount": 10
+    }
+  ],
+  "tags": [
+    1,
+    2
+  ],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+  "name": "string",
+  "text": "string",
+  "cooking_time": 1
+}
+
 # Автор
 Автор проекта - Тихомиров Никита - https://github.com/NikTihomirovv
