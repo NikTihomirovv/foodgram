@@ -42,6 +42,7 @@ Foodgram - это сайт с возможностью добавлять рец
 * DEBUG = 'False/True' Режим отладки.
 
 # Список доступных эндпоинтов
+```
 /api/users/
 /api/users/{id}/
 /api/users/me/
@@ -59,6 +60,7 @@ Foodgram - это сайт с возможностью добавлять рец
 /api/users/{id}/subscribe/
 /api/ingredients/
 /api/ingredients/{id}
+```
 
 # Примеры запросов 
 POST /api/users/ - запрос на регистрацию нового пользователя.
