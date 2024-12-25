@@ -60,6 +60,7 @@ Foodgram - это сайт с возможностью добавлять рец
 
 # Примеры запросов 
 POST /api/users/ - запрос на регистрацию нового пользователя.
+```
 {
 "email": "vpupkin@yandex.ru",
 "username": "vasya.pupkin",
@@ -73,24 +74,10 @@ POST /api/auth/token/login/ - запрос на получение токена.
 "password": "Qwerty123",
 "email": "vpupkin@yandex.ru"
 }
+```
 
 POST /api/recipes/ - создание нового рецепта.
-{
-  "ingredients": [
-    {
-      "id": 1123,
-      "amount": 10
-    }
-  ],
-  "tags": [
-    1,
-    2
-  ],
-  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
-  "name": "string",
-  "text": "string",
-  "cooking_time": 1
-}
+
 
 # Автор
 Автор проекта - Тихомиров Никита - https://github.com/NikTihomirovv
