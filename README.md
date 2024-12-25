@@ -6,9 +6,11 @@ Foodgram - это сайт с возможностью добавлять рец
 # Стек
 * Python 3.9
 * Django 3.2.3
-* djangorestframework 3.12.4
+* Djangorestframework 3.12.4
 * Nginx
 * Docker
+* JWT
+* Gunicorn
 
 # Как развернуть проект на сервере
 Как развернуть проект с помощью Docker.
